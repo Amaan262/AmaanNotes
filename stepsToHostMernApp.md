@@ -79,7 +79,7 @@ https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/#std-labe
 
 2. starting backend server
 
-   <code>pm2 start npm --name "test_server" -- start</code>
+   <code>pm2 start npm --name "test_server" -- start --watch</code>
 
 3. Check logs for server
 
