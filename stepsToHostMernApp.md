@@ -92,6 +92,9 @@ curl -o http://localhost:8080
 2. sudo apt install ufw
 3. sudo systemctl start ufw
 4. sudo systemctl enable ufw
+5. sudo ufw allow ssh
+6. sudo ufw allow http
+7. sudo ufw allow https
 
 # setting up nginx server
 
@@ -104,15 +107,20 @@ curl -o http://localhost:8080
 7.  cd /etc/nginx/sites-available
 8.  nano your_ip.config or domain.config
 9.  paste the code in this file
-    <code>server {
-    listen 80;
-    root <project-folder>;
+    <code>
+      root /var/www/html;
+    index index.html index.htm;
+    server_name your_domain.com www.your_domain.com;
+    location / {
+proxy_pass http://localhost:8080; # or which other port your app runs on
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection 'upgrade';
+proxy_set_header Host $host;
+proxy_cache_bypass $http_upgrade;
+} </code>
 
-        location / {
-            try_files $uri $uri/ =404;
-        }
-
-    }</code>
-
-10. check all files are good
+11. check all files are good
     <code>sudo nginx -t</code>
+
+12. sudo service apache2 restart
