@@ -137,9 +137,10 @@ for apache2
 
     ProxyPass /api http://localhost:8080/
     ProxyPassReverse /api http://localhost:8080/
-
+   <Location/>
     ProxyPass / http://localhost:3000/
     ProxyPassReverse / http://localhost:3000/
+    </Location>
 </VirtualHost>
 
 </code>
