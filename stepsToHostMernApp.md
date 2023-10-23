@@ -108,10 +108,15 @@ curl -o http://localhost:8080
 8.  nano your_ip.config or domain.config
 9.  paste the code in this file
     <code>
-      root /var/www/html;
-    index index.html index.htm;
+    server{
+       listen 80;
+       listen [::]:80;
     server_name your_domain.com www.your_domain.com;
+    root /var/www/html; 
+    index index.html index.htm;
+    
     location / {
+    
 proxy_pass http://localhost:8080; # or which other port your app runs on
 proxy_http_version 1.1;
 proxy_set_header Upgrade $http_upgrade;
@@ -157,7 +162,12 @@ for apache2
 </code>
 11. check all files are good
     <code>sudo nginx -t</code>
+12. making symbolic link
+go to /etc/nginx/sites-enabled
+<code>
+   
+   ln -s ../sites-available/website.com.conf
+</code>
 
-12.sudo a2ensite your-mern-app.conf
-sudo systemctl restart apache2
+13. systemctl restart nginx
 
