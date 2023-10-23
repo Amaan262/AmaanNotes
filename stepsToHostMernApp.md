@@ -171,3 +171,8 @@ go to /etc/nginx/sites-enabled
 
 13. systemctl restart nginx
 
+# SSL Certificate
+
+1. sudo apt-get install certbot python3-certbot-nginx
+2. sudo certbot --nginx -d mywebsite.com -d www.mywebsite.com
+3. 
