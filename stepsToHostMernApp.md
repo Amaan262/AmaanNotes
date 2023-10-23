@@ -120,6 +120,17 @@ proxy_set_header Host $host;
 proxy_cache_bypass $http_upgrade;
 } </code>
 
+# for not serving statically
+server{
+listen 80;
+root /root/your_buildfolder;
+
+location / {
+try_files $uri $uri/ =404;
+}
+}
+
+
 for apache2
 <code>
 <VirtualHost *:80>
