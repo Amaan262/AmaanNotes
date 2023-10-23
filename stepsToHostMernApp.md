@@ -120,7 +120,32 @@ proxy_set_header Host $host;
 proxy_cache_bypass $http_upgrade;
 } </code>
 
+for apache2
+<code>
+<VirtualHost *:80>
+    ServerName your_domain.com
+    ServerAlias www.your_domain.com
+
+    DocumentRoot /var/www/html
+
+    <Directory /var/www/html>
+        Options -Indexes
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    ProxyPass /api http://localhost:8080/
+    ProxyPassReverse /api http://localhost:8080/
+
+    ProxyPass / http://localhost:3000/
+    ProxyPassReverse / http://localhost:3000/
+</VirtualHost>
+
+</code>
 11. check all files are good
     <code>sudo nginx -t</code>
 
-12. sudo service apache2 restart
+12.sudo a2ensite your-mern-app.conf
+sudo systemctl restart apache2
+
